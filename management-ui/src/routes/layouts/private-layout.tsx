@@ -1,6 +1,9 @@
 // src/routes/layouts/PrivateLayout.tsx
 import { Outlet, Navigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth"; // Hook de autenticação
+import { AppSidebar } from "../../components/app-sidebar";
+import { SiteHeader } from "../../components/site-header";
+import { SidebarInset, SidebarProvider } from "../../components/ui/sidebar";
 
 export default function PrivateLayout() {
   const { isAuthenticated } = useAuth();
@@ -10,14 +13,23 @@ export default function PrivateLayout() {
   }
 
   return (
-    <div className="flex min-h-screen">
-      {/* Sidebar */}
-      <aside className="w-64 bg-gray-800 text-white p-4">Menu</aside>
-
-      {/* Conteúdo */}
-      <main className="flex-1 p-6 bg-gray-50">
-        <Outlet />
-      </main>
-    </div>
+    <SidebarProvider
+      style={
+        {
+          "--sidebar-width": "calc(var(--spacing) * 72)",
+          "--header-height": "calc(var(--spacing) * 12)",
+        } as React.CSSProperties
+      }
+    >
+      <AppSidebar variant="inset" />
+      <SidebarInset>
+        <SiteHeader />
+        <div className="flex flex-1 flex-col">
+          <div className="@container/main flex flex-1 flex-col gap-2">
+            <Outlet />
+          </div>
+        </div>
+      </SidebarInset>
+    </SidebarProvider>
   );
 }

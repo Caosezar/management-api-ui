@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState } from "react";
 
 interface AuthState {
   isAuthenticated: boolean;
@@ -6,7 +6,8 @@ interface AuthState {
 
 export function useAuth() {
   const [state] = useState<AuthState>({
-    isAuthenticated: false, // Por padrão, o usuário não está autenticado
+    // Temporariamente habilitado para desenvolvimento
+    isAuthenticated: true,
   });
 
   return {

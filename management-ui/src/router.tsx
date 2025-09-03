@@ -1,5 +1,5 @@
 import { lazy, Suspense } from "react";
-import { createHashRouter, RouterProvider, Navigate } from "react-router-dom";
+import { createHashRouter, Navigate, RouterProvider } from "react-router-dom";
 
 const PublicLayout = lazy(() => import("../src/routes/layouts/public-layout"));
 const PrivateLayout = lazy(
@@ -11,7 +11,7 @@ const Login = lazy(() => import("../src/features/auth/login"));
 const Register = lazy(() => import("./routes/public/register"));
 
 // Private
-const Dashboard = lazy(() => import("./routes/private/dashboard"));
+const MainDashboardPage = lazy(() => import("../src/features/dashboard/page"));
 const Users = lazy(() => import("./routes/private/users"));
 const Reports = lazy(() => import("./routes/private/reports"));
 
@@ -26,16 +26,16 @@ const LoadingScreen = () => (
 const publicRoutes = {
   element: <PublicLayout />,
   children: [
-    { path: "/", element: <Login /> },
+    { path: "/login", element: <Login /> },
     { path: "/register", element: <Register /> },
   ],
 };
 
 const privateRoutes = {
-  path: "/app",
+  path: "/",
   element: <PrivateLayout />,
   children: [
-    { index: true, element: <Dashboard /> },
+    { index: true, element: <MainDashboardPage /> },
     { path: "users", element: <Users /> },
     { path: "reports", element: <Reports /> },
   ],
@@ -68,7 +68,7 @@ const router = createHashRouter([
       privateRoutes,
       {
         path: "*",
-        element: <Navigate to="/login" replace />,
+        element: <Navigate to="/" replace />,
       },
     ],
   },
