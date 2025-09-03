@@ -6,8 +6,8 @@ interface AuthState {
 
 export function useAuth() {
   const [state] = useState<AuthState>({
-    // Temporariamente habilitado para desenvolvimento
-    isAuthenticated: true,
+    // false para fase de teste login
+    isAuthenticated: false,
   });
 
   return {

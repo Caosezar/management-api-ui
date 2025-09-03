@@ -24,15 +24,16 @@ const LoadingScreen = () => (
 
 // Route Configurations
 const publicRoutes = {
+  path: "/",
   element: <PublicLayout />,
   children: [
-    { path: "/login", element: <Login /> },
-    { path: "/register", element: <Register /> },
+    { path: "login", element: <Login /> },
+    { path: "register", element: <Register /> },
   ],
 };
 
 const privateRoutes = {
-  path: "/",
+  path: "/app",
   element: <PrivateLayout />,
   children: [
     { index: true, element: <MainDashboardPage /> },
@@ -64,11 +65,15 @@ const router = createHashRouter([
   {
     errorElement: <ErrorBoundary />,
     children: [
+      {
+        path: "/",
+        element: <Navigate to="/login" replace />,
+      },
       publicRoutes,
       privateRoutes,
       {
         path: "*",
-        element: <Navigate to="/" replace />,
+        element: <Navigate to="/login" replace />,
       },
     ],
   },
