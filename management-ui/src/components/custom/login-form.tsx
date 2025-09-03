@@ -14,9 +14,11 @@ export function LoginForm({
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
         <CardHeader>
-          <CardTitle>Login to your account</CardTitle>
+          {/* Possível logo no futuro */}
+          <CardTitle className="text-2xl font-semibold flex w-full items-center justify-center mb-2 bg-gray-50 rounded-md border py-2">EasyGame</CardTitle>
+          <CardTitle>Faça login na sua conta</CardTitle>
           <CardDescription>
-            Enter your email below to login to your account
+            Insira seu email abaixo para acessar sua conta
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -33,12 +35,12 @@ export function LoginForm({
               </div>
               <div className="grid gap-3">
                 <div className="flex items-center">
-                  <Label htmlFor="password">Password</Label>
+                  <Label htmlFor="password">Senha</Label>
                   <a
                     href="#"
                     className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
                   >
-                    Forgot your password?
+                    Esqueceu sua senha?
                   </a>
                 </div>
                 <Input id="password" type="password" required />
@@ -48,14 +50,14 @@ export function LoginForm({
                   Login
                 </Button>
                 <Button variant="outline" className="w-full">
-                  Login with Google
+                  Login com Google
                 </Button>
               </div>
             </div>
             <div className="mt-4 text-center text-sm">
-              Don&apos;t have an account?{" "}
+              Não tem uma conta?{" "}
               <a href="#" className="underline underline-offset-4">
-                Sign up
+                Cadastre-se
               </a>
             </div>
           </form>

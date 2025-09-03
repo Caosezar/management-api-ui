@@ -1,15 +1,14 @@
 import { lazy, Suspense } from "react";
 import { createHashRouter, RouterProvider, Navigate } from "react-router-dom";
 
-// Layouts
 const PublicLayout = lazy(() => import("../src/routes/layouts/public-layout"));
 const PrivateLayout = lazy(() => import("../src/routes/layouts/private-layout"));
 
-// Public Routes
+// Public
 const Login = lazy(() => import("./routes/public/login"));
 const Register = lazy(() => import("./routes/public/register"));
 
-// Private Routes
+// Private
 const Dashboard = lazy(() => import("./routes/private/dashboard"));
 const Users = lazy(() => import("./routes/private/users"));
 const Reports = lazy(() => import("./routes/private/reports"));
@@ -40,7 +39,7 @@ const privateRoutes = {
   ],
 };
 
-// Error Boundary Component
+// Error Boundary
 const ErrorBoundary = () => {
   return (
     <div className="min-h-screen flex items-center justify-center">
@@ -58,7 +57,7 @@ const ErrorBoundary = () => {
   );
 };
 
-// Router Configuration
+// Router Config
 const router = createHashRouter([
   {
     errorElement: <ErrorBoundary />,
