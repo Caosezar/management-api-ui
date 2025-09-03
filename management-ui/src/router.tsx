@@ -2,10 +2,12 @@ import { lazy, Suspense } from "react";
 import { createHashRouter, RouterProvider, Navigate } from "react-router-dom";
 
 const PublicLayout = lazy(() => import("../src/routes/layouts/public-layout"));
-const PrivateLayout = lazy(() => import("../src/routes/layouts/private-layout"));
+const PrivateLayout = lazy(
+  () => import("../src/routes/layouts/private-layout")
+);
 
 // Public
-const Login = lazy(() => import("./routes/public/login"));
+const Login = lazy(() => import("../src/features/auth/login"));
 const Register = lazy(() => import("./routes/public/register"));
 
 // Private
@@ -47,7 +49,7 @@ const ErrorBoundary = () => {
         <h1 className="text-2xl font-bold text-gray-900 mb-4">Oops!</h1>
         <p className="text-gray-600 mb-4">Algo deu errado.</p>
         <button
-          onClick={() => window.location.href = '/'}
+          onClick={() => (window.location.href = "/")}
           className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
         >
           Voltar ao início

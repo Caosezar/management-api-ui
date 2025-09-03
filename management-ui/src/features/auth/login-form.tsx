@@ -1,16 +1,16 @@
 import { useState } from "react";
-import { cn } from "../../lib/utils";
-import { Button } from "../ui/button";
+import { useLogin } from "../../hooks/useLogin";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "../ui/card";
-import { Input } from "../ui/input";
-import { Label } from "../ui/label";
-import { useLogin } from "../../hooks/useLogin";
+} from "../../components/ui/card";
+import { cn } from "../../lib/utils";
+import { Label } from "@radix-ui/react-label";
+import { Button } from "../../components/ui/button";
+import { Input } from "../../components/ui/input";
 
 export function LoginForm({
   className,
