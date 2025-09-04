@@ -11,6 +11,13 @@ export default tseslint.config([
     files: ['**/*.{ts,tsx}'],
     extends: [
       js.configs.recommended,
+      {
+        plugins: { react },
+        rules: {
+          "react-refresh/only-export-components": "off",
+
+        },
+      },
       tseslint.configs.recommended,
       reactHooks.configs['recommended-latest'],
       reactRefresh.configs.vite,
