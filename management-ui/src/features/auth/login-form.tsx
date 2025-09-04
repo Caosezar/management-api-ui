@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useLogin } from "../../hooks/useLogin";
 import {
   Card,
   CardContent,
@@ -11,23 +10,22 @@ import { cn } from "../../lib/utils";
 import { Label } from "@radix-ui/react-label";
 import { Button } from "../../components/ui/button";
 import { Input } from "../../components/ui/input";
+import { useNavigate } from "react-router-dom";
+import { Eye, EyeOff } from "lucide-react";
 
 export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  const loginMutation = useLogin();
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    // Integração com a API de autenticação aqui
 
-    loginMutation.mutate({
-      email,
-      password,
-    });
   };
 
   return (
@@ -49,20 +47,6 @@ export function LoginForm({
         <CardContent>
           <form onSubmit={handleSubmit}>
             <div className="flex flex-col gap-6">
-              {/* Mensagem de erro */}
-              {loginMutation.isError && (
-                <div className="p-3 text-sm text-red-600 bg-red-50 rounded-md">
-                  {loginMutation.error?.message || "Erro no login"}
-                </div>
-              )}
-
-              {/* Mensagem de sucesso */}
-              {loginMutation.isSuccess && (
-                <div className="p-3 text-sm text-green-600 bg-green-50 rounded-md">
-                  Login realizado com sucesso!
-                </div>
-              )}
-
               <div className="grid gap-3">
                 <Label htmlFor="email">Email</Label>
                 <Input
@@ -72,9 +56,9 @@ export function LoginForm({
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
-                  disabled={loginMutation.isPending}
                 />
               </div>
+
               <div className="grid gap-3">
                 <div className="flex items-center">
                   <Label htmlFor="password">Senha</Label>
@@ -85,36 +69,45 @@ export function LoginForm({
                     Esqueceu sua senha?
                   </a>
                 </div>
-                <Input
-                  id="password"
-                  type="password"
-                  placeholder="123456"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                  disabled={loginMutation.isPending}
-                />
+
+                <div className="relative">
+                  <Input
+                    id="password"
+                    type={showPassword ? "text" : "password"}
+                    placeholder="123456"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                    className="pr-10"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute inset-y-0 right-2 flex items-center text-gray-500 hover:text-gray-700"
+                    tabIndex={-1}
+                  >
+                    {showPassword ? (
+                      <EyeOff className="h-5 w-5" />
+                    ) : (
+                      <Eye className="h-5 w-5" />
+                    )}
+                  </button>
+                </div>
               </div>
+
               <div className="flex flex-col gap-3">
-                <Button
-                  type="submit"
-                  className="w-full"
-                  disabled={loginMutation.isPending}
-                >
-                  {loginMutation.isPending ? "Fazendo login..." : "Login"}
+                <Button onClick={() => navigate("/app")} className="w-full">
+                  Login
                 </Button>
-                <Button
-                  variant="outline"
-                  className="w-full"
-                  disabled={loginMutation.isPending}
-                >
+                <Button variant="outline" className="w-full">
                   Login com Google
                 </Button>
               </div>
             </div>
+
             <div className="mt-4 text-center text-sm">
               Não tem uma conta?{" "}
-              <a href="#" className="underline underline-offset-4">
+              <a href="/register" className="underline underline-offset-4">
                 Cadastre-se
               </a>
             </div>

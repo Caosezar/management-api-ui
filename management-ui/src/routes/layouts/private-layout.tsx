@@ -1,13 +1,13 @@
 // src/routes/layouts/PrivateLayout.tsx
 import { Outlet, Navigate } from "react-router-dom";
-import { useAuth } from "../../hooks/useAuth"; // Hook de autenticação
 import { AppSidebar } from "../../components/app-sidebar";
 import { SiteHeader } from "../../components/site-header";
 import { SidebarInset, SidebarProvider } from "../../components/ui/sidebar";
+import { useAuth } from "../../contexts/auth/auth-context";
 
 export default function PrivateLayout() {
   const { isAuthenticated } = useAuth();
-
+  console.log(isAuthenticated);
   if (!isAuthenticated) {
     return <Navigate to="/login" replace />;
   }
