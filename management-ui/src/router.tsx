@@ -1,5 +1,5 @@
 import { lazy, Suspense } from "react";
-import { createHashRouter, Navigate, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom";
 
 const PublicLayout = lazy(() => import("../src/routes/layouts/public-layout"));
 const PrivateLayout = lazy(
@@ -7,13 +7,13 @@ const PrivateLayout = lazy(
 );
 
 // Public
-const Login = lazy(() => import("../src/features/auth/login"));
-const Register = lazy(() => import("./routes/public/register"));
+const Login = lazy(() => import("./features/auth/login"));
+const Register = lazy(() => import("./features/auth/register"));
 
 // Private
 const MainDashboardPage = lazy(() => import("../src/features/dashboard/page"));
-const Users = lazy(() => import("./routes/private/users"));
-const Reports = lazy(() => import("./routes/private/reports"));
+// const Users = lazy(() => import("./routes/private/users"));
+// const Reports = lazy(() => import("./routes/private/reports"));
 
 // Loading Component
 const LoadingScreen = () => (
@@ -37,8 +37,8 @@ const privateRoutes = {
   element: <PrivateLayout />,
   children: [
     { index: true, element: <MainDashboardPage /> },
-    { path: "users", element: <Users /> },
-    { path: "reports", element: <Reports /> },
+    // { path: "users", element: <Users /> },
+    // { path: "reports", element: <Reports /> },
   ],
 };
 
@@ -60,8 +60,8 @@ const ErrorBoundary = () => {
   );
 };
 
-// Router Config
-const router = createHashRouter([
+// Create Router
+const router = createBrowserRouter([
   {
     errorElement: <ErrorBoundary />,
     children: [
@@ -78,6 +78,7 @@ const router = createHashRouter([
     ],
   },
 ]);
+
 
 export function AppRouter() {
   return (
